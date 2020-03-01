@@ -12,7 +12,8 @@ Maybe Feature:
 ## Wireframe 
 ![WireFrame](./assets/WireFrame.png)
 ## File Structure
-``` /assets
+``` 
+    /assets
         -background.png
         -bone_treat.png
         -caped_hero.png

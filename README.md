@@ -10,7 +10,7 @@ In Treat Retriever, users will be able to:
 Maybe Feature:
     -Cat popping up and out of sewer in which doggo has to avoid
 ## Wireframe 
-![WireFrame](./src/images/WireFrame.png)
+![WireFrame](./assets/WireFrame.png)
 ## File Structure
 ``` /assets
         -background.png
@@ -27,13 +27,19 @@ Maybe Feature:
         -vacuum.js
         -treat_retriever.js
         -difficulty_levels.js
-        -dog_sprite.js
         -game.js
+        -player.js (dog sprite)
+        -nav_bar.js
         -index.js
-
+        
 ```
 ## Architecture && API
     -CanvasHTML
     -HTMLDom
-
-
+## Implementation Timeline
+Day 1-3:
+1. Create Index.html based on Wireframe
+2. Player Logic
+3. Background and Game Logic
+4. Treat & Obstacles & Score
+5. Nav Bar & Difficulty levels

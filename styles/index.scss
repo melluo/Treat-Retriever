@@ -35,8 +35,6 @@ canvas{
     border-bottom: 0px;
     display: block;
     margin: 0 auto;
-    height: 300px;
-    width: 800px;
 }
 br{
     content: " ";
@@ -48,7 +46,7 @@ br{
     display: flex;
     justify-content: space-around;
     width: 800px;
-    border: 1px solid black; 
+    border: 1px solid black;
     margin: 0 auto;
     box-shadow: inset 0 0 0 10px #FFCB37, inset 0 0 0 14px #fff;
 }
@@ -60,5 +58,5 @@ br{
     border-radius: 2em;
 }
 .difficulty_button:hover{
-    background-color: white;
+    border-color: rgba(255,255,255,1);
 }

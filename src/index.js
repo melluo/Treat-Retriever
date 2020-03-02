@@ -1,1 +1,5 @@
-import "./styles/index.scss";
+import "../styles/index.scss";
+
+document.addEventListener("DOMContentLoaded",()=> {
+
+})

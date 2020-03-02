@@ -5,10 +5,31 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
     <link rel="stylesheet" href="./dist/main.css" />
+    <link href="https://fonts.googleapis.com/css?family=Press+Start+2P&display=swap" rel="stylesheet">
     <title>Document</title>
   </head>
 
   <body>
+      <div class="name_container"> 
+        <img src='./assets/bone_treat.png' class="bone rotate"> 
+        <h1 class="game_name">  Treat Retriever  </h1> 
+        <img src='./assets/bone_treat.png' class="bone rotate">
+        </div>
+        <br></br>
+        <br>
+      <canvas id="canvas_container" width=800 height=300></canvas>
+      <div class ="nav_bar">
+          <button class="difficulty_button"> Easy </button>
+          <button class="difficulty_button"> Medium </button>
+          <button class="difficulty_button"> Hard </button>
+          
+      </div>
+      <div class="instructions"> 
+          <p>You are the caped hero-retriver. Collect treats and avoid obstacles to increase dogepoints. </p>
+          <p>Press Space to Jump!</p>
+      </div>
+      
+      <main id="container"></main>
     <script src="./dist/main.js"></script>
   </body>
 </html>

@@ -1,5 +1,9 @@
+const Player = require('./player');
 class Game{
-    constuctor(){
+    constructor(ctx){
         this.player = new Player();
+        this.player.show(ctx);
+        
     }
 }
+module.exports = Game;

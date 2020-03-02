@@ -35,8 +35,9 @@ Maybe Feature:
         
 ```
 ## Architecture && API
-    -CanvasHTML
-    -HTMLDom
+    -CanvasHTML to render various sprites and obstacles
+    -HTMLDom will be used for rendering various game inputs and 
+    -Webpack to bundle Javascript, CSS files and provide scripts
 ## Implementation Timeline
 Day 1-3:
 1. Create Index.html based on Wireframe

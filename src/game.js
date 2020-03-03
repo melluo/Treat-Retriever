@@ -1,23 +1,29 @@
 const Player = require('./player');
+const Background = require('./background.js')
 class Game{
-    constructor(ctx){
-        this.ctx = ctx;
-        this.dimensions = { width: ctx.canvas.width, height: ctx.canvas.height}
-        // this.player = new Player(this.dimensions);
+    constructor(gamectx, backgroundctx){
+        this.gamectx = gamectx;
+        this.background = new Background(backgroundctx);
+        this.dimensions = { width: gamectx.canvas.width, height: gamectx.canvas.height}
+        // this.player = new Player(this s.dimensions);
         this.spacePressed = false;
         this.registerEvents();
         this.restart();
         this.jump = this.jump.bind(this);
         this.animate= this.animate.bind(this);
+        this.score = 0;
+        this.gameSpeed = 3;
+        this.gravity = 1;
         
 
     }
     jump(){
+    
         this.player.jump();
     }
     animate(){
-        this.player.animate(this.ctx);
-        // this.background.animate()
+        this.background.draw();
+        this.player.animate(this.gamectx);
         requestAnimationFrame(this.animate.bind(this));
     }
     restart(){
@@ -37,7 +43,7 @@ class Game{
         this.animate();
     }
     registerEvents() {
-        this.ctx.canvas.addEventListener("keydown",(e) => {
+        this.gamectx.canvas.addEventListener("keydown",(e) => {
             // debugger;
             if (e.keyCode === 32){
                 e.preventDefault();
@@ -49,7 +55,7 @@ class Game{
     // requestAnimation(){
     //     debugger;
     //     window.requestAnimationFrame( ()=>{
-    //         this.player.show(this.ctx);
+    //         this.player.show(this.gamectx);
     //         if (this.spacePressed){
     //             this.player.velocity -= 5
     //             this.spacePressed = false;

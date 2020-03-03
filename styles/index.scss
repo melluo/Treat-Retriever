@@ -29,12 +29,28 @@
 
 }
 
-canvas{
-    
-    border: 1px solid black;
-    border-bottom: 0px;
+.game_area {
+    position: relative;
+    height: 300px;
+    width: 800px;
+    margin: auto;
     display: block;
-    margin: 0 auto;
+    border: 3px solid black;
+}
+
+#canvas_container{
+    position: absolute;
+    right: 0px;
+    margin: auto;
+    z-index: 1;
+}
+#main_background{
+    position: absolute;
+    right: 0px;
+    margin: auto;
+    z-index: 0;
+
+
 }
 br{
     content: " ";

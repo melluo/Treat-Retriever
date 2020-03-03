@@ -22,7 +22,7 @@ class Background{
     
             
         } 
-        this.x -= this.speed;https://github.com/mrcjbradley/js_project_skeleton.git
+        this.x -= this.speed;
         //making image move
         //negative acceleration is acceleration towards the left
     }

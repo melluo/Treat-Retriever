@@ -16,7 +16,7 @@ class Background{
         // draw 1st image at 0 position
         this.ctx.drawImage(this.image, this.x + this.imageWidth,this.y);
         //draw image 2 for loop (at image width)
-        if (this.x === this.imageWidth){
+        loop (this.x === this.imageWidth){
             //if reach end of image, reset x position to play image again
             this.x = 0;
         } 

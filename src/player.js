@@ -1,74 +1,128 @@
-const CONSTANTS = {
-    TERMINAL_VEL: 12,
-    SPEED: 10,
-    GRAVITY: .35
-}
+// const CONSTANTS = {
+//     TERMINAL_VEL: 12,
+//     SPEED: 10,
+//     GRAVITY: .35
+// }
+
 
 class Player {
     constructor(dimensions){
         this.dimensions = dimensions;
         this.size = 50;
+        this.ground = this.dimensions.height - this.size;
         this.x = this.size; 
-        this.y = this.dimensions.height - this.size; //it is sitting at the bottom
+        this.y = this.ground; //it is sitting at the bottom
         this.velocity = 0; //velocity speed along the y axis to be able to jump
         this.gravity = .4; //on every frame adding .4 to the objects y position
         this.speed = 1;
         this.jumping= false;
-        this.jumpForce = 15;
-        this.friction = .7;
-        this.jumpCount = 0;
+        this.jumpForce = 12;
+        this.jumpTicks = 0;
         this.maxHeight = 0;
-    }
+        this.dogHero = new Image();
+        this.dogHero.src = "./assets/caped_hero.png";
+        this.spriteTiles = [
+            {
+                sX: 7,
+                sY: 9,
+                w: 61,
+                h: 34
+            },
+            {
+                sX: 81,
+                sY: 10,
+                w: 63,
+                h: 32
+            },
+            {   
+                sX: 154,
+                sY: 6,
+                w: 57,
+                h: 39
+            }, 
+            {   
+                sX: 230,
+                sY: 6,
+                w: 65,
+                h: 40
+            },
+             
+        ];
+
+        }
 
     
-    jump(){
-       if (this.jumping){
-           //friction
-           this.velocity = -20;
-           this.move();
-            //negative velocity, -1 for every 60 pixels up
-           this.jumping = false;
-           this.jumpCount += 1;
-        }   else {
-            this.grounded();
-            this.jumpCount = 0;
-            this.jumping = true;
+    // jump(){
+    //    if (this.jumping){
+    //        //friction
+    //        this.velocity = -20;
+    //        this.moveUp();
+    //         //negative velocity, -1 for every 60 pixels up
+    //        this.jumping = false;
+    //        this.jumpCount += 1;
+    //         if (this.y < 250){
+    //             this.grounded();
+    //             this.jumpCount = 0;
+    //             this.jumping = true;
+    //         }
+    //    }
+    // }
+    // moveUp(){  
+    //     this.y += this.velocity;
+    //     this.velocity += this.gravity;
+    //     if (Math.abs(this.velocity) > CONSTANTS.TERMINAL_VEL) {
+    //         //if the terminal velocity is exceeded, we set it to the terminal velicty
+    //         if (this.velocity > 0) {
+    //           this.velocity = CONSTANTS.TERMINAL_VEL;
+    //         } else {
+    //           this.velocity = CONSTANTS.TERMINAL_VEL * -1;
+    //         }
+    //       }
+        
+    // }
 
-       }
+    jump() {
+        if (this.jumping) {
+            //it is really making many microjumps (jumpTicks) on the page and stimulating one large jump
+            //jumpTicks helps generate changing positiondisplacements using gravity
+          if (this.jumpTicks === 0 || this.y < 250){
+              this.positionDisplacement = this.gravity * this.jumpTicks;
+              this.y -= this.jumpForce - this.positionDisplacement;
+            //jumpForce is speed at which object jumps
+            this.jumpTicks += 1;
+          } else {
+              //else reset everything 
+            this.y = 250;
+            this.jumpTicks = 0; 
+            this.jumping = false;
+            }
+        }
     }
     
-   
-   grounded(){
-    if (this.y > this.dimensions.height - this.size || this.y <= this.maxHeight){
-        this.y = this.dimensions.height - this.size; //so we can jump again
-            this.velocity = 0;//no longer moving, velocity is 0
-         }
-   }
+
+    // jump(ctx){
+    //     if (ctx.canvas.keypress === "Space"){
+    //      console.log("hello");
+    //     }
+    // }
+  
+//    grounded(){
+//     if (this.y > this.dimensions.height - this.size || this.y <= this.maxHeight){
+//         this.y = this.dimensions.height - this.size; //so we can jump again
+//             this.velocity = 0;//no longer moving, velocity is 0
+//          }
+// 
 //    fall() {
 //        this.y += 100;
 //    }
-    move(){  
-        this.y += this.velocity;
-        this.velocity += this.gravity;
-        if (Math.abs(this.velocity) > CONSTANTS.TERMINAL_VEL) {
-            //if the terminal velocity is exceeded, we set it to the terminal velicty
-            if (this.velocity > 0) {
-              this.velocity = CONSTANTS.TERMINAL_VEL;
-            } else {
-              this.velocity = CONSTANTS.TERMINAL_VEL * -1;
-            }
-          }
-        
-    }
-
 
     animate(ctx){
-        this.grounded();
-        this.move();
+        this.jump(ctx);
         this.draw(ctx);
     }
     draw(ctx){
         ctx.clearRect(0,0,800,300);
+       
         ctx.beginPath();
         ctx.rect(this.x, this.y, this.size, this.size);
         // ctx.drawImage(this.img, this.x, this.y);
@@ -105,16 +159,3 @@ class Player {
 
 module.exports = Player;
 
-// const gravity = 0.4;
-// const initialSpeed = 10;
-// if (this.jumping) {
-//   if (this.jumpCount === 0 || !this.onGround()){
-//     this.position[1] -= initialSpeed - gravity * this.jumpCount;
-//     this.jumpCount += 1;
-//   } else {
-//     this.position[1] = 220;
-//     this.jumpCount = 0;
-//     this.jumping = false;
-//   }
-// }
-// }

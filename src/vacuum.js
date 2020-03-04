@@ -13,8 +13,6 @@ class Vacuum{
 
     draw(ctx){
         ctx.drawImage(this.sprite, this.spawnX, this.spawnY, this.vacuumWidth, this.vacuumHeight);
-        ctx.beginPath();
-        
     }
 }
 module.exports= Vacuum;

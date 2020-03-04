@@ -6,7 +6,7 @@ class Background{
         this.image.src = main_background;
         this.imageWidth = this.image.width;
         this.ctxWidth = this.ctx.canvas.width;
-        this.speed = 1.5;
+        this.speed = 2;
         this.x = 0;
         this.y = 0;
         

@@ -7,54 +7,48 @@ class Game{
         this.background = new Background(backgroundctx);
         this.dimensions = { width: gamectx.canvas.width, height: gamectx.canvas.height}
         // this.player = new Player(this s.dimensions);
+        this.jump = this.jump.bind(this);
         this.spacePressed = false;
         this.registerEvents();
         this.start();
-        this.jump = this.jump.bind(this);
-        this.animate= this.animate.bind(this);
+       
         this.score = 0;
         this.gameSpeed = 3;
         this.gravity = 1;
         
     }
-    jump(){
-        
-        this.player.jump();
+    // jump(){
+        //     this.player.jumping = true;
+        //     this.player.jump();
+        // }
+    jump(e){
+        if(e.keyCode === 32){
+            e.preventDefault();
+            this.player.jumping = true;
+            this.player.jump();
+        }
+    }
+    
+    registerEvents(){
+        this.gamectx.canvas.addEventListener("keydown", this.jump);
     }
     animate(){
-        this.background.draw();
+        requestAnimationFrame(this.animate.bind(this));
         this.player.animate(this.gamectx);
         this.vacuum.draw(this.gamectx);
-        requestAnimationFrame(this.animate.bind(this));
+        this.background.draw();
     }
     start(){
-        this.running = false;
+        this.gameOver = false;
         this.player = new Player(this.dimensions);
         this.vacuum = new Vacuum(700, 167);
+        
+
         //all other things to load here
         this.animate();
     }
-    click(e){
-        if (!this.running){
-            this.play();
-        }
-        this.player.jump();
-    }
     
-    play(){
-        this.running=true;
-        this.animate();
-    }
-    registerEvents() {
-        this.gamectx.canvas.addEventListener("keydown",(e) => {
-            // debugger;
-            if (e.keyCode === 32){
-                e.preventDefault();
-                this.running = true;
-                this.click(e);
-            }
-        });
-    }
+    
     // requestAnimation(){
     //     debugger;
     //     window.requestAnimationFrame( ()=>{

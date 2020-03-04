@@ -1,5 +1,4 @@
 
-
 class Obstacle{
     constructor(positionX, positionY){
         this.positionX = positionX;

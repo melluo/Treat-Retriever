@@ -1,6 +1,7 @@
 const Player = require('./player');
 const Background = require('./background.js');
 const Vacuum = require('./vacuum.js');
+const Treat = require('./treat.js');
 class Game{
     constructor(gamectx, backgroundctx){
         this.gamectx = gamectx;
@@ -11,12 +12,14 @@ class Game{
         this.spacePressed = false;
         this.registerEvents();
         this.start();
-       
+        this.obstacles = [];
         this.score = 0;
         this.gameSpeed = 3;
         this.gravity = 1;
+
         
     }
+ 
     // jump(){
         //     this.player.jumping = true;
         //     this.player.jump();
@@ -36,18 +39,21 @@ class Game{
         requestAnimationFrame(this.animate.bind(this));
         this.player.animate(this.gamectx);
         this.vacuum.draw(this.gamectx);
+        this.treat.draw(this.gamectx);
         this.background.draw();
     }
     start(){
         this.gameOver = false;
         this.player = new Player(this.dimensions);
-        this.vacuum = new Vacuum(700, 167);
-        
+        this.vacuum = new Vacuum(700, 184);
+        this.treat = new Treat(500, 140);
 
         //all other things to load here
         this.animate();
     }
-    
+    createObstacle(){
+
+    }
     
     // requestAnimation(){
     //     debugger;

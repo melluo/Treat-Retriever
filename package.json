@@ -10,11 +10,10 @@
     "not dead"
   ],
   "scripts": {
-      "start": "webpack-dev-server --config webpack.dev.js",
-      "webpack:watch": "webpack --watch --config webpack.dev.js",
-      "webpack:build": "webpack --config webpack.prod.js  --optimize-minimize"
+    "start": "webpack-dev-server --config webpack.dev.js",
+    "webpack:watch": "webpack --watch --config webpack.dev.js",
+    "webpack:build": "webpack --config webpack.prod.js  --optimize-minimize"
   },
-
   "repository": {
     "type": "git",
     "url": "git+https://github.com/luomel/luomel.github.io.git"

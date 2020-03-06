@@ -2,10 +2,10 @@ const Player = require('./player');
 const Background = require('./background.js');
 const Vacuum = require('./vacuum.js');
 const Treat = require('./treat.js');
-// const DogCords = {
-//     DogRight: 113,
-//     DogBottom: 
-// }
+const DOGCORDS = {
+    dogRight: 113,
+    dogBot: 266
+}
 class Game{
     constructor(gamectx, backgroundctx){
         this.gamectx = gamectx;
@@ -52,18 +52,43 @@ class Game{
     
         for (let i=0; i<this.obstacles.length; i++){
             this.obstacles[i].draw(this.gamectx);
-            
-            if(113 === this.obstacles[i].spawnX){
-                window.alert("Game Over");
-            };
+            const dogLeft = this.player.x + 10;
+            const dogRight = this.player.x + this.player.spriteTiles[1].w;
+            const dogTop = this.player.y;
+            const dogBottom = this.player.y + this.player.spriteTiles[1].h;
+            let vacuumLeft = this.obstacles[i].spawnX + 20; //with displacement
+            let vacuumRight = this.obstacles[i].spawnX + this.obstacles[i].vacuumWidth;
+            let vacuumTop = this.obstacles[i].spawnY + 20;
+            if(((vacuumLeft <= dogRight) && (dogLeft <= vacuumRight)) &&
+            ((vacuumTop >= dogTop) && (vacuumTop <= dogBottom))){
+                alert('game Over');
+            }  //if right of dog hits left of vacuum
         }
-    
-
+        // this.checkgameOver();
+        
+        
+        // if (this.gameOver === true){
+        //     window.alert('Game Over');
+        // }
         // this.vacuum.draw(this.gamectx);
         this.treat.draw(this.gamectx);
         this.background.draw();
     }   
+    // checkgameOver(){
+    //     this.obstacles.forEach((obstacle) => {
+    //         if(DOGCORDS.dogRight === obstacle.spawnX + 20):
+    //             this.gameOver = true;
+    //         case(DOGCORDS.dogBot === obstacle.spawnY):
+    //             this.gameOver = true;
+    //         }
 
+
+              
+
+    //     });
+
+
+    // }
     
     //make sure they dont spawn in predictable places
     createObstacles(){

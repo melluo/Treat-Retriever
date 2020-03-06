@@ -15,7 +15,7 @@ class Player {
         this.gravity = .4; //on every frame adding .4 to the objects y position
         this.speed = 1;
         this.jumping= false;
-        this.jumpForce = 11;
+        this.jumpForce = 13;
         this.jumpTicks = 0;
         this.maxHeight = 0;
         this.dogHero = new Image();
@@ -151,13 +151,25 @@ class Player {
         let sprite = this.loadSprite();
         ctx.drawImage(this.dogHero, sprite.sX, sprite.sY, sprite.w, sprite.h, this.x, this.y, sprite.w, sprite.h);
         ctx.beginPath();
-        ctx.rect(this.x, this.y, 63, 32);
+        ctx.rect(this.x +10, this.y, 68-20, 32);
         ctx.lineWidth = 1;
         ctx.strokeStyle = 'yellow';
         ctx.stroke();
     }
  
-  
+    // collidedWith(obstacle) {
+    //     const playerHitbox = this.hitbox();
+    //     const vacuumHitbox = vacuum.hitbox();
+    //     return !(
+    //       playerHitbox.maxX < vacuumHitbox.minX ||
+    //       playerHitbox.minX > vacuumHitbox.maxX ||
+    //       playerHitbox.maxY < vacuumHitbox.minY ||
+    //       playerHitbox.minY > vacuumHitbox.maxY
+    //     );
+    // }
+    
+     
+    
     // draw(ctx){
         
     //     ctx.clearRect(0,0,800,300);

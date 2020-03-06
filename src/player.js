@@ -3,7 +3,7 @@
 //     SPEED: 10,
 //     GRAVITY: .35
 // }
-
+const Vacuum = require('./vacuum.js');
 
 class Player {
     constructor(dimensions){
@@ -150,7 +150,14 @@ class Player {
         ctx.clearRect(0, 0, 800, 300)
         let sprite = this.loadSprite();
         ctx.drawImage(this.dogHero, sprite.sX, sprite.sY, sprite.w, sprite.h, this.x, this.y, sprite.w, sprite.h);
+        ctx.beginPath();
+        ctx.rect(this.x, this.y, 63, 32);
+        ctx.lineWidth = 1;
+        ctx.strokeStyle = 'yellow';
+        ctx.stroke();
     }
+ 
+  
     // draw(ctx){
         
     //     ctx.clearRect(0,0,800,300);

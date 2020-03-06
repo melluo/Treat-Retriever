@@ -8,7 +8,7 @@ class Vacuum{
         this.x = positionX;
         this.vacuumHeight = 116;   
         this.spawnY = positionY;
-        this.speed = 2;
+        this.speed = 3;
     }
 
 
@@ -21,6 +21,13 @@ class Vacuum{
          
         }
         this.spawnX -= this.speed;
+        ctx.beginPath();
+        
+        ctx.rect(this.spawnX, this.spawnY , 68, 120);
+        ctx.lineWidth = 1;
+        ctx.strokeStyle = 'yellow';
+        ctx.stroke();
     }
+    
 }
 module.exports= Vacuum;

@@ -41,27 +41,27 @@ class Game{
     animate(){
         requestAnimationFrame(this.animate.bind(this));
         this.player.animate(this.gamectx);
-        this.createObstacles();
+      
         //this.obstacles  pool, look through it and call
         for (let i=0; i<this.obstacles.length; i++){
-            debugger;
             this.obstacles[i].draw(this.gamectx);
         }
-        
+        // this.vacuum.draw(this.gamectx);
         this.treat.draw(this.gamectx);
         this.background.draw();
     }
+    
     createObstacles(){
         this.obstacles = [];
         this.maxVacuums = 3;
-        for(let i = 0; this.obstacles < this.maxVacuums; i++ ){
-            let object = new Vacuum(Math.floor(Math.random() * Math.floor(800)), 184);
+        for(let i = 0; this.obstacles.length < this.maxVacuums; i++ ){
+            let object = new Vacuum(Math.floor(Math.random() * Math.floor(1050)), 184);
             this.obstacles.push(object);
         }
     }
     
     start(){
-        
+        this.createObstacles();
         this.gameOver = false;
         this.player = new Player(this.dimensions);
         // this.vacuum = new Vacuum(Math.floor(Math.random() * Math.floor(800)), 184);

@@ -6,9 +6,9 @@ class Treat {
         this.boneWidth = 30; 
         this.spawnX = positionX;
         this.x = positionX;
-        this.boneHeight = 14;   
+        this.boneHeight = 14;    
         this.spawnY = positionY;
-        this.speed = 3;
+        this.speed = 2;
     }
 
 

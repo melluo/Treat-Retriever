@@ -29,13 +29,6 @@ class Vacuum{
         ctx.stroke();
     }
     
-    bounds(){
-        return {
-            left: this.x,
-            right: this.x + this.vacuumWidth,
-            top: this.y,
-            bottom:
-        }
-    }
+  
 }
 module.exports= Vacuum;

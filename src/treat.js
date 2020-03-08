@@ -8,7 +8,7 @@ class Treat {
         this.x = positionX;
         this.boneHeight = 14;    
         this.spawnY = positionY;
-        this.speed = 2;
+        this.speed = 0;
     }
 
 

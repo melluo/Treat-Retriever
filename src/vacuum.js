@@ -8,7 +8,7 @@ class Vacuum{
         this.x = positionX;
         this.vacuumHeight = 116;   
         this.spawnY = positionY;
-        this.speed = 3;
+        this.speed = 2.8;
     }
     
 

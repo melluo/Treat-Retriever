@@ -16,7 +16,7 @@ class Game{
         this.spacePressed = false;
         this.registerEvents();
         this.hoverCanvas();
-        
+        this.obstacles = [];
         this.start();
         this.instructionsctx = document.getElementById("instructions_canvas");
         // let object = new Vacuum(Math.floor(Math.random() * Math.floor(800)),182);
@@ -69,39 +69,39 @@ class Game{
         
         
     }   
-    
- 
-    checkgameOver(){
+
+     checkgameOver(){
         this.obstacles.forEach((obstacle) => {
             const dogLeft = this.player.x + 10;
+            const dogTop = this.player.y + 10;
             const dogRight = this.player.x + this.player.spriteTiles[1].w;
-            const dogTop = this.player.y;
             const dogBottom = this.player.y + this.player.spriteTiles[1].h;
             let vacuumLeft = obstacle.spawnX + 20; //with displacement
             let vacuumRight = obstacle.spawnX + obstacle.vacuumWidth;
             let vacuumTop = obstacle.spawnY + 20;
-            if(((vacuumLeft < dogRight) && (dogLeft < vacuumRight)) &&
-            ((vacuumTop > dogTop) && (vacuumTop < dogBottom))){
+            if( (vacuumLeft < dogRight) && (dogLeft < vacuumRight) && (vacuumTop <= dogTop) ){
                 this.gameOver = true;
             }
         });
-        
-
     }
-  
       
     //     });
 
-
+    randomize(){
+        window.setInterval( ()=> {
+            this.obstacles.pop();
+            this.obstacles.push (new Vacuum(this.randomIntFromInterval(720,940),184));
+        }, 2800);
+        
+    }
     // }
     
     //make sure they dont spawn in predictable places
     createObstacles(){
-        this.obstacles = [];
-        this.obstacles.push(new Vacuum (1000, 184));
-        this.obstacles.push(new Vacuum (this.randomIntFromInterval(700,800), 184));
-        this.obstacles.push (new Vacuum (this.randomIntFromInterval(500,600), 184));
-        this.obstacles.push (new Vacuum(this.randomIntFromInterval(300,400),184));
+        this.obstacles.push(new Vacuum(1040, 184));
+        this.randomize();
+        this.obstacles.push(new Vacuum (this.randomIntFromInterval(300,600), 184));
+
     
         //making sure that vacuums dont spawn on top of each other
             // this.spaceBetween = 300;
@@ -137,13 +137,14 @@ class Game{
         this.gameOver = false;
         this.player = new Player(this.dimensions);
         // this.vacuum = new Vacuum(Math.floor(Math.random() * Math.floor(800)), 184);
-        this.treat = new Treat(500, 140);
+        this.treat = new Treat(770, 140);
         
         //all other things to load here
         this.animate();
     }
     hoverCanvas(){
         this.gamectx.beginPath();
+        
        
         // debugger;
     }

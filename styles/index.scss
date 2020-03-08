@@ -1,6 +1,7 @@
 .game_name{
     font-family: 'Press Start 2P';
     color: white;
+    z-index: 6;
 }
 
 .rotate {
@@ -18,6 +19,7 @@
 
 .bone{
     width: 50px;
+    z-index: 6;
 }
 
 
@@ -26,9 +28,46 @@
    border: 1px solid black;
    background-color: #FFCB37;
     justify-content: center;
+    z-index: 6;
 
 }
+#main {
+    display: block;
+   
+    margin: auto;
+    position: absolute;
+    top: 0; left: 0; bottom: 0; right: 0;
+    z-index:5;
+    padding: 40px;
+    background-color: transparent;
+  }
 
+
+#main > p {
+    font-family: 'Press Start 2P';
+    display: block;
+    text-align: center;
+    padding-top: 40px;
+}
+  .button {
+    display: block;
+    width: 300px;
+    margin: 0 auto;
+    height: 60px;
+    font-family: 'Press Start 2P';
+    line-height: 20px;
+    border: 1px solid #AA2666;
+    color: white;
+    font-weight: bold;
+    background: linear-gradient(to bottom, #33ccff 0%, #ff99cc 100%);
+    border-radius: 5px;
+    
+  }
+  .button:hover {
+    background-color: #B30D5D;
+    background-image: -webkit-linear-gradient(bottom, #B30D5D 0%, #FB1886 100%);
+    background-image:         linear-gradient(to bottom, #B30D5D 0%, #FB1886 100%);
+  }
 .game_area {
     position: relative;
     height: 300px;
@@ -36,26 +75,25 @@
     margin: auto;
     display: block;
     border: 3px solid black;
+    z-index:2;
 }
 
 #canvas_container{
     position: absolute;
-    right: 0px;
-    margin: auto;
-    z-index: 1;
+
+    z-index: 2;
 }
 #main_background{
     position: absolute;
-    right: 0px;
-    margin: auto;
+  
     z-index: 0;
 
 
 }
+
 br{
     content: " ";
     padding: 20px;
-    
 }
 .nav_bar{
     padding: 20px;
@@ -66,6 +104,7 @@ br{
     margin: 0 auto;
     box-shadow: inset 0 0 0 10px #FFCB37, inset 0 0 0 14px #fff;
 }
+
 
 .difficulty_button{
     font-family: 'Press Start 2P';

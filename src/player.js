@@ -8,7 +8,7 @@ const Vacuum = require('./vacuum.js');
 class Player {
     constructor(dimensions){
         this.dimensions = dimensions;
-        this.ground = this.dimensions.height - 34;
+        this.ground = this.dimensions.height - 32;
         this.x = 50;
         this.y = this.ground; //it is sitting at the bottom
         this.velocity = 0; //velocity speed along the y axis to be able to jump
@@ -191,6 +191,20 @@ class Player {
     // ctx.fill();
     // ctx.strokeStyle = 'yellow';
     // ctx.stroke();
+    bounds() {
+        return{
+            left: this.x,
+            right: this.player.x + this.player.spriteTiles[1].w,
+            top: this.y,
+            bottom: this.player.y + this.player.spriteTiles[1].h
+        }
+
+    }
+    outOfBounds(){
+        const aboveTheTop = this.y < 0;
+        const belowTheBottom = this.ground > this.dimensions.height;
+        return aboveTheTop || belowTheBottom;
+    }
 }
 
 

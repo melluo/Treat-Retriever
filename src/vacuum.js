@@ -10,7 +10,7 @@ class Vacuum{
         this.spawnY = positionY;
         this.speed = 3;
     }
-
+    
 
     draw(ctx){
         ctx.drawImage(this.sprite, this.spawnX, this.spawnY, this.vacuumWidth, this.vacuumHeight);
@@ -29,5 +29,13 @@ class Vacuum{
         ctx.stroke();
     }
     
+    bounds(){
+        return {
+            left: this.x,
+            right: this.x + this.vacuumWidth,
+            top: this.y,
+            bottom:
+        }
+    }
 }
 module.exports= Vacuum;

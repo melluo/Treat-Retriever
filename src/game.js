@@ -15,11 +15,13 @@ class Game{
         this.jump = this.jump.bind(this);
         this.spacePressed = false;
         this.registerEvents();
-        this.start();
+        this.hoverCanvas();
         
+        this.start();
+        this.instructionsctx = document.getElementById("instructions_canvas");
         // let object = new Vacuum(Math.floor(Math.random() * Math.floor(800)),182);
         // let object2 =new Vacuum(Math.floor(Math.random() * Math.floor(800)),182);
-
+    
         this.score = 0;
         this.gameSpeed = 3;
         this.gravity = 1;
@@ -52,39 +54,42 @@ class Game{
     
         for (let i=0; i<this.obstacles.length; i++){
             this.obstacles[i].draw(this.gamectx);
+            //if right of dog hits left of vacuum
+         
+        }
+        this.checkgameOver();
+        
+        
+        if (this.gameOver === true){
+            alert("game over");
+        }
+        // this.vacuum.draw(this.gamectx);
+        this.treat.draw(this.gamectx);
+        this.background.draw();
+        
+        
+    }   
+    
+ 
+    checkgameOver(){
+        this.obstacles.forEach((obstacle) => {
             const dogLeft = this.player.x + 10;
             const dogRight = this.player.x + this.player.spriteTiles[1].w;
             const dogTop = this.player.y;
             const dogBottom = this.player.y + this.player.spriteTiles[1].h;
-            let vacuumLeft = this.obstacles[i].spawnX + 20; //with displacement
-            let vacuumRight = this.obstacles[i].spawnX + this.obstacles[i].vacuumWidth;
-            let vacuumTop = this.obstacles[i].spawnY + 20;
-            if(((vacuumLeft <= dogRight) && (dogLeft <= vacuumRight)) &&
-            ((vacuumTop >= dogTop) && (vacuumTop <= dogBottom))){
-                alert('game Over');
-            }  //if right of dog hits left of vacuum
-        }
-        // this.checkgameOver();
+            let vacuumLeft = obstacle.spawnX + 20; //with displacement
+            let vacuumRight = obstacle.spawnX + obstacle.vacuumWidth;
+            let vacuumTop = obstacle.spawnY + 20;
+            if(((vacuumLeft < dogRight) && (dogLeft < vacuumRight)) &&
+            ((vacuumTop > dogTop) && (vacuumTop < dogBottom))){
+                this.gameOver = true;
+            }
+        });
         
-        
-        // if (this.gameOver === true){
-        //     window.alert('Game Over');
-        // }
-        // this.vacuum.draw(this.gamectx);
-        this.treat.draw(this.gamectx);
-        this.background.draw();
-    }   
-    // checkgameOver(){
-    //     this.obstacles.forEach((obstacle) => {
-    //         if(DOGCORDS.dogRight === obstacle.spawnX + 20):
-    //             this.gameOver = true;
-    //         case(DOGCORDS.dogBot === obstacle.spawnY):
-    //             this.gameOver = true;
-    //         }
 
-
-              
-
+    }
+  
+      
     //     });
 
 
@@ -94,9 +99,9 @@ class Game{
     createObstacles(){
         this.obstacles = [];
         this.obstacles.push(new Vacuum (1000, 184));
-        this.obstacles.push(new Vacuum (this.randomIntFromInterval(600,800), 184));
-        this.obstacles.push (new Vacuum (this.randomIntFromInterval(400,500), 184));
-        this.obstacles.push (new Vacuum(this.randomIntFromInterval(200,300),184));
+        this.obstacles.push(new Vacuum (this.randomIntFromInterval(700,800), 184));
+        this.obstacles.push (new Vacuum (this.randomIntFromInterval(500,600), 184));
+        this.obstacles.push (new Vacuum(this.randomIntFromInterval(300,400),184));
     
         //making sure that vacuums dont spawn on top of each other
             // this.spaceBetween = 300;
@@ -133,10 +138,16 @@ class Game{
         this.player = new Player(this.dimensions);
         // this.vacuum = new Vacuum(Math.floor(Math.random() * Math.floor(800)), 184);
         this.treat = new Treat(500, 140);
-
+        
         //all other things to load here
         this.animate();
     }
+    hoverCanvas(){
+        this.gamectx.beginPath();
+       
+        // debugger;
+    }
+    
     // createObstacles(){
     //     this.obstacles = [];
     //     this.maxVacuums = 3;
@@ -170,6 +181,9 @@ class Game{
     //         }
     //     }, false);
     // }
+  
+
+
 }
 
 

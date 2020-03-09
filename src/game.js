@@ -45,7 +45,7 @@ class Game{
         this.gamectx.canvas.addEventListener("keydown", this.jump);
     }
     animate(){
-       
+       if(!this.gameOver){
         requestAnimationFrame(this.animate.bind(this));
         this.player.animate(this.gamectx);
         //this.obstacles  pool, look through it and call
@@ -58,15 +58,10 @@ class Game{
          
         }
         this.checkgameOver();
-        
-        
-        if (this.gameOver === true){
-            alert("game over");
-        }
         // this.vacuum.draw(this.gamectx);
+    }
         this.treat.draw(this.gamectx);
         this.background.draw();
-        
         
     }   
 
@@ -81,12 +76,23 @@ class Game{
             let vacuumTop = obstacle.spawnY + 20;
             if( (vacuumLeft < dogRight) && (dogLeft < vacuumRight) && (vacuumTop <= dogTop) ){
                 this.gameOver = true;
+                this.gameOverScreen();
             }
         });
     }
-      
-    //     });
+    gameOverScreen(){
+        if(this.gameOver === true){
+            this.gamectx.beginPath();
+            this.gamectx.font = "50px Comic Sans MS";
+            this.gamectx.textAlign = "center";
+            this.gamectx.fillStyle = '#ffcB37';
+            this.gamectx.strokeText("Game Over", this.gamectx.canvas.width/2, this.gamectx.canvas.height/2);
+            this.gamectx.fillText("Game Over", this.gamectx.canvas.width/2, this.gamectx.canvas.height/2);
 
+        }
+    }
+
+ 
     randomize(){
         window.setInterval( ()=> {
             this.obstacles.pop();
@@ -182,7 +188,7 @@ class Game{
     //         }
     //     }, false);
     // }
-  
+    
 
 
 }

@@ -7,7 +7,10 @@
 .rotate {
     animation: rotation 4s infinite ;
 }
-
+@font-face {
+  font-family: 'Press Start 2P';
+  src: url('https://fonts.googleapis.com/css?family=Press+Start+2P');
+}
 @keyframes rotation {
     from {
       transform: rotate(0deg);

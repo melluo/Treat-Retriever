@@ -7,9 +7,7 @@ document.addEventListener("DOMContentLoaded",()=> {
 
     const backgroundcvs = document.getElementById("main_background");
     const backgroundctx = backgroundcvs.getContext("2d");
-    console.log("hello");
     const game = new Game(gamectx, backgroundctx);
-    console.log("nihao");
  
-})
+});
 

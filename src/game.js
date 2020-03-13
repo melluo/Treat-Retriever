@@ -15,10 +15,8 @@ class Game{
         this.jump = this.jump.bind(this);
         this.spacePressed = false;
         this.registerEvents();
-        this.hoverCanvas();
         this.obstacles = [];
         this.start();
-        this.instructionsctx = document.getElementById("instructions_canvas");
         // let object = new Vacuum(Math.floor(Math.random() * Math.floor(800)),182);
         // let object2 =new Vacuum(Math.floor(Math.random() * Math.floor(800)),182);
     
@@ -48,12 +46,14 @@ class Game{
        if(!this.gameOver){
         requestAnimationFrame(this.animate.bind(this));
         this.player.animate(this.gamectx);
+        
         //this.obstacles  pool, look through it and call
         // random number between 1 and 10 
       
     
         for (let i=0; i<this.obstacles.length; i++){
             this.obstacles[i].draw(this.gamectx);
+         
             //if right of dog hits left of vacuum
          
         }
@@ -84,8 +84,11 @@ class Game{
         if(this.gameOver === true){
             this.gamectx.beginPath();
             this.gamectx.font = "50px Comic Sans MS";
+            // Fill with gradient
             this.gamectx.textAlign = "center";
             this.gamectx.fillStyle = '#ffcB37';
+            this.gamectx.strokeStyle = 'white';
+            this.gamectx.lineWidth = 4;
             this.gamectx.strokeText("Game Over", this.gamectx.canvas.width/2, this.gamectx.canvas.height/2);
             this.gamectx.fillText("Game Over", this.gamectx.canvas.width/2, this.gamectx.canvas.height/2);
 
@@ -93,20 +96,31 @@ class Game{
     }
 
  
-    randomize(){
-        window.setInterval( ()=> {
-            this.obstacles.pop();
-            this.obstacles.push (new Vacuum(this.randomIntFromInterval(720,940),184));
-        }, 2800);
+    // randomize(){
+    //     window.setInterval( ()=> {
+    //         this.obstacles.pop();
+    //         this.obstacles.push (new Vacuum(this.randomIntFromInterval(720,940),184));
+    //     }, 2800);
         
-    }
+    // }
     // }
     
+  
     //make sure they dont spawn in predictable places
     createObstacles(){
+        // const obstacleSpacing = 200;
+        // const range1 = (Math.random() *this.dimensions.width);
+        // const range2 = (Math.random() * (this.dimensions.width - obstacleSpacing));
         this.obstacles.push(new Vacuum(1040, 184));
-        this.randomize();
-        this.obstacles.push(new Vacuum (this.randomIntFromInterval(300,600), 184));
+        
+        for(let i=0; this.obstacles.length < 3; i++){
+                let obstacleMax = this.obstacles[i].spawnX - 250;
+                let obstacleMin = obstacleMax - 200;
+                this.obstacles.push(new Vacuum(this.randomIntFromInterval(obstacleMin, obstacleMax), 184));
+        }
+        // this.obstacles.push(new Vacuum(this.randomIntFromInterval(this.obstacles.x))
+        
+        // this.obstacles.push(new Vacuum (this.randomIntFromInterval(,600), 184));
 
     
         //making sure that vacuums dont spawn on top of each other
@@ -148,12 +162,7 @@ class Game{
         //all other things to load here
         this.animate();
     }
-    hoverCanvas(){
-        this.gamectx.beginPath();
-        
-       
-        // debugger;
-    }
+    
     
     // createObstacles(){
     //     this.obstacles = [];

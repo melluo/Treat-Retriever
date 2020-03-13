@@ -21,12 +21,12 @@ class Vacuum{
          
         }
         this.spawnX -= this.speed;
-        ctx.beginPath();
+        // ctx.beginPath();
         
-        ctx.rect(this.spawnX + 20, this.spawnY +20 , 40, 120);
-        ctx.lineWidth = 1;
-        ctx.strokeStyle = 'yellow';
-        ctx.stroke();
+        // ctx.rect(this.spawnX + 20, this.spawnY +20 , 40, 120);
+        // ctx.lineWidth = 1;
+        // ctx.strokeStyle = 'yellow';
+        // ctx.stroke();
     }
     
   

@@ -150,11 +150,11 @@ class Player {
         ctx.clearRect(0, 0, 800, 300)
         let sprite = this.loadSprite();
         ctx.drawImage(this.dogHero, sprite.sX, sprite.sY, sprite.w, sprite.h, this.x, this.y, sprite.w, sprite.h);
-        ctx.beginPath();
-        ctx.rect(this.x +10, this.y, 68-20, 32);
-        ctx.lineWidth = 1;
-        ctx.strokeStyle = 'yellow';
-        ctx.stroke();
+        // ctx.beginPath();
+        // ctx.rect(this.x +10, this.y, 68-20, 32);
+        // ctx.lineWidth = 1;
+        // ctx.strokeStyle = 'yellow';
+        // ctx.stroke();
     }
  
     // collidedWith(obstacle) {

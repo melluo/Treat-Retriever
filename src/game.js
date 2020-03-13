@@ -16,13 +16,15 @@ class Game{
         this.spacePressed = false;
         this.registerEvents();
         this.obstacles = [];
-        this.start();
+        this.start = this.start.bind(this);
         // let object = new Vacuum(Math.floor(Math.random() * Math.floor(800)),182);
         // let object2 =new Vacuum(Math.floor(Math.random() * Math.floor(800)),182);
-    
-        this.score = 0;
+        this.menu();
+        this.score = 0; 
         this.gameSpeed = 3;
         this.gravity = 1;
+   
+     
 
         
     }
@@ -42,19 +44,17 @@ class Game{
     registerEvents(){
         this.gamectx.canvas.addEventListener("keydown", this.jump);
     }
-    animate(){
-       if(!this.gameOver){
-        requestAnimationFrame(this.animate.bind(this));
+    draw(){
+        if(!this.gameOver){
+            debugger;
+        requestAnimationFrame(this.draw.bind(this));
         this.player.animate(this.gamectx);
         
-        //this.obstacles  pool, look through it and call
-        // random number between 1 and 10 
       
     
         for (let i=0; i<this.obstacles.length; i++){
             this.obstacles[i].draw(this.gamectx);
          
-            //if right of dog hits left of vacuum
          
         }
         this.checkgameOver();
@@ -66,6 +66,7 @@ class Game{
     }   
 
      checkgameOver(){
+         debugger;
         this.obstacles.forEach((obstacle) => {
             const dogLeft = this.player.x + 10;
             const dogTop = this.player.y + 10;
@@ -75,6 +76,7 @@ class Game{
             let vacuumRight = obstacle.spawnX + obstacle.vacuumWidth;
             let vacuumTop = obstacle.spawnY + 20;
             if( (vacuumLeft < dogRight) && (dogLeft < vacuumRight) && (vacuumTop <= dogTop) ){
+                debugger;
                 this.gameOver = true;
                 this.gameOverScreen();
             }
@@ -95,7 +97,32 @@ class Game{
         }
     }
 
- 
+    menu() {
+     
+        // Show the menu
+        this.gamectx.beginPath();
+        this.gamectx.font = "50px Comic Sans MS";
+        this.gamectx.textAlign = "center";
+        this.gamectx.fillStyle = '#ffcB37';
+        this.gamectx.strokeStyle = 'white';
+        this.gamectx.lineWidth = 4;
+        this.gamectx.strokeText("Click to Start!", this.gamectx.canvas.width/2, this.gamectx.canvas.height/2);
+        this.gamectx.fillText("Click to Start!", this.gamectx.canvas.width/2, this.gamectx.canvas.height/2);
+        // Start the game on a click
+       this.gamectx.canvas.addEventListener("click", this.start);
+   
+    }
+
+    // erase() {
+    //     this.gamectx.beginPath();
+    //     this.gamectx.rect(0, 0, this.dimensions.width, this.dimensions.height);
+    //     this.gamectx.lineWidth = 1;
+    //     this.gamectx.strokeStyle = 'yellow';
+    //     this.gamectx.stroke();
+    //     this.gamectx.fillStyle = '#ffcB37';
+    //     this.gamectx.fillRect(0, 0, canvas.width, canvas.height);
+    // }
+      
     // randomize(){
     //     window.setInterval( ()=> {
     //         this.obstacles.pop();
@@ -115,7 +142,7 @@ class Game{
         
         for(let i=0; this.obstacles.length < 3; i++){
                 let obstacleMax = this.obstacles[i].spawnX - 250;
-                let obstacleMin = obstacleMax - 200;
+                let obstacleMin = obstacleMax - 150;
                 this.obstacles.push(new Vacuum(this.randomIntFromInterval(obstacleMin, obstacleMax), 184));
         }
         // this.obstacles.push(new Vacuum(this.randomIntFromInterval(this.obstacles.x))
@@ -153,6 +180,10 @@ class Game{
     }
   
     start(){
+        debugger;
+        this.gamectx.canvas.removeEventListener("click", () => {
+            debugger;
+            this.start;});
         this.createObstacles();
         this.gameOver = false;
         this.player = new Player(this.dimensions);
@@ -160,7 +191,7 @@ class Game{
         this.treat = new Treat(770, 140);
         
         //all other things to load here
-        this.animate();
+        this.draw();
     }
     
     

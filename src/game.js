@@ -16,6 +16,7 @@ class Game{
         this.spacePressed = false;
         this.registerEvents();
         this.obstacles = [];
+        this.treats = [];
         this.start();
         // let object = new Vacuum(Math.floor(Math.random() * Math.floor(800)),182);
         // let object2 =new Vacuum(Math.floor(Math.random() * Math.floor(800)),182);
@@ -23,7 +24,6 @@ class Game{
         this.score = 0;
         this.gameSpeed = 3;
         this.gravity = 1;
-        
     }
  
     // jump(){
@@ -48,30 +48,49 @@ class Game{
         this.createObstacles();
         //this.obstacles  pool, look through it and call
         // random number between 1 and 10 
-    
+        this.generateTreat();
         for (let i=0; i<this.obstacles.length; i++){
             this.obstacles[i].draw(this.gamectx);
-         
-            //if right of dog hits left of vacuum
-         
         }
-        // this.checkgameOver();
-        // this.vacuum.draw(this.gamectx);
-    }
-        this.treat.draw(this.gamectx);
+        
+        for (let i=0; i<this.treats.length; i++){
+            this.treats[i].draw(this.gamectx);
+        }
+        
+        
+        this.scoreIncrement();
+        this.checkgameOver();    
+        }
         this.background.draw();
         
     }   
 
+     scoreIncrement(){
+        this.treats.forEach((treat) => {
+            const dogLeft = this.player.x + 10;
+            const dogTop = this.player.y + 10;
+            const dogRight = this.player.x + this.player.spriteTiles[1].w;
+            const treatLeft =  treat.spawnX + 2
+            const treatRight = treat.spawnX + treat.boneWidth + 2;
+            const treatTop = treat.spawnY;
+            if( (treatLeft < dogRight) && (dogLeft < treatRight) && (treatTop <= dogTop)) {
+                this.treats[0].delete(this.gamectx);
+                this.treats.splice(-1, 1);
+                this.generateTreat();
+            }
+        })
+        
+
+     }
      checkgameOver(){
         this.obstacles.forEach((obstacle) => {
             const dogLeft = this.player.x + 10;
             const dogTop = this.player.y + 10;
             const dogRight = this.player.x + this.player.spriteTiles[1].w;
             const dogBottom = this.player.y + this.player.spriteTiles[1].h;
-            let vacuumLeft = obstacle.spawnX + 20; //with displacement
-            let vacuumRight = obstacle.spawnX + obstacle.vacuumWidth;
-            let vacuumTop = obstacle.spawnY + 20;
+            const vacuumLeft = obstacle.spawnX + 20; //with displacement
+            const vacuumRight = obstacle.spawnX + obstacle.vacuumWidth;
+            const vacuumTop = obstacle.spawnY + 20;
             if( (vacuumLeft < dogRight) && (dogLeft < vacuumRight) && (vacuumTop <= dogTop) ){
                 this.gameOver = true;
                 this.gameOverScreen();
@@ -92,9 +111,15 @@ class Game{
 
         }
     }
+    generateTreat(){
+        if(this.treats.length < 1){
+        this.treats.push(new Treat(820, 140));
+        }
+    }
     createObstacles(){
         if (this.background.x === 0 && this.obstacles.length < 3){
             this.obstacles.push(new Vacuum(600, 184));
+            
         } else if (this.background.x === -450 && this.obstacles.length < 3){
             this.obstacles.push(new Vacuum(this.randomIntFromInterval(600,820), 184));
         } else if (this.background.x === -820 && this.obstacles.length < 3){
@@ -152,7 +177,7 @@ class Game{
         this.gameOver = false;
         this.player = new Player(this.dimensions);
         // this.vacuum = new Vacuum(Math.floor(Math.random() * Math.floor(800)), 184);
-        this.treat = new Treat(770, 140);
+        // this.treat = new Treat(770, 140);
         
         //all other things to load here
         this.animate();

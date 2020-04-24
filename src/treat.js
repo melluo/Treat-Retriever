@@ -8,7 +8,7 @@ class Treat {
         this.x = positionX;
         this.boneHeight = 14;    
         this.spawnY = positionY;
-        this.speed = 0;
+        this.speed = 4;
     }
 
 
@@ -17,10 +17,16 @@ class Treat {
         if(this.spawnX <= (ctx.canvas.width*-1)){ 
         
         
-            this.spawnX = ctx.canvas.width; 
+            this.spawnX = ctx.canvas.width;
          
         }
         this.spawnX -= this.speed;
+      
     }
+
+    delete(ctx){
+        ctx.clearRect(this.spawnX, this.spawnY, this.boneWidth + 5, this.boneHeight);
+    }
+
 }
 module.exports = Treat;

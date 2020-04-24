@@ -17,13 +17,15 @@ class Game{
         this.registerEvents();
         this.obstacles = [];
         this.treats = [];
+        this.frame = 0;
+        
+        this.score = 0;
+        this.gameSpeed = 3;
+        this.gravity = 1;
         this.start();
         // let object = new Vacuum(Math.floor(Math.random() * Math.floor(800)),182);
         // let object2 =new Vacuum(Math.floor(Math.random() * Math.floor(800)),182);
         this.maxVacuums = 3;
-        this.score = 0;
-        this.gameSpeed = 3;
-        this.gravity = 1;
     }
  
     // jump(){
@@ -57,15 +59,23 @@ class Game{
             this.treats[i].draw(this.gamectx);
         }
         
-        
+        this.calculateScore()
         this.scoreIncrement();
-        this.checkgameOver();    
+        // this.checkgameOver();    
         }
         this.background.draw();
         
     }   
+    calculateScore(){
+        if(this.background.x === -1020){
+            this.frame += 1;
+        }
+        this.framePosition = (this.frame * 1020) + (-1 * this.background.x);
+        this.score += this.framePosition;
 
+    }
      scoreIncrement(){
+
         this.treats.forEach((treat) => {
             const dogLeft = this.player.x + 10;
             const dogTop = this.player.y + 10;
@@ -73,7 +83,8 @@ class Game{
             const treatLeft =  treat.spawnX + 2
             const treatRight = treat.spawnX + treat.boneWidth + 2;
             const treatTop = treat.spawnY;
-            if( (treatLeft < dogRight) && (dogLeft < treatRight) && (treatTop <= dogTop)) {
+            if( (treatLeft < dogRight) && (dogLeft < treatRight) && (treatTop >= dogTop)) {
+                this.score += 1000;
                 this.treats[0].delete(this.gamectx);
                 this.treats.splice(-1, 1);
                 this.generateTreat();

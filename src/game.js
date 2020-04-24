@@ -18,11 +18,16 @@ class Game{
         this.obstacles = [];
         this.treats = [];
         this.frame = 0;
-        
+        this.frameId = null;
         this.score = 0;
+        this.treatCount = 0;
         this.gameSpeed = 3;
         this.gravity = 1;
-        this.start();
+        
+        this.updateScore = this.updateScore.bind(this);
+        this.updateTreatCount = this.updateTreatCount.bind(this);
+        this.scoreDiv = document.getElementById("score");
+        this.treatDiv = document.getElementById("treats");
         // let object = new Vacuum(Math.floor(Math.random() * Math.floor(800)),182);
         // let object2 =new Vacuum(Math.floor(Math.random() * Math.floor(800)),182);
         this.maxVacuums = 3;
@@ -42,10 +47,19 @@ class Game{
     
     registerEvents(){
         this.gamectx.canvas.addEventListener("keydown", this.jump);
+        this.gamectx.canvas.addEventListener("click", () => {
+            document.getElementById("start").classList.add("hide");
+            document.getElementById('starting-background').classList.add("hide");
+            document.getElementById("instruction1").classList.add("hide");
+            document.getElementById("instruction2").classList.add("hide");
+            document.getElementById("instruction3").classList.add("hide");
+
+             this.start();
+        });
     }
     animate(){
        if(!this.gameOver){
-        requestAnimationFrame(this.animate.bind(this));
+        this.frameId = requestAnimationFrame(this.animate.bind(this));
         this.player.animate(this.gamectx);
         this.createObstacles();
         //this.obstacles  pool, look through it and call
@@ -59,8 +73,8 @@ class Game{
             this.treats[i].draw(this.gamectx);
         }
         
-        this.calculateScore()
-        this.scoreIncrement();
+        this.calculateScore();
+        this.treatScore();
         // this.checkgameOver();    
         }
         this.background.draw();
@@ -71,11 +85,19 @@ class Game{
             this.frame += 1;
         }
         this.framePosition = (this.frame * 1020) + (-1 * this.background.x);
-        this.score += this.framePosition;
-
+        this.score += this.framePosition / 1020 ;
+        this.updateScore();
     }
-     scoreIncrement(){
+    
+    updateScore(){
+        this.scoreDiv.innerText = `Dogepoints: ${Math.trunc(this.score)}`;
+    }
 
+    updateTreatCount(){
+        this.treatDiv.innerText = `Treats Retrieved: ${this.treatCount}`;
+    }
+
+    treatScore(){
         this.treats.forEach((treat) => {
             const dogLeft = this.player.x + 10;
             const dogTop = this.player.y + 10;
@@ -84,7 +106,9 @@ class Game{
             const treatRight = treat.spawnX + treat.boneWidth + 2;
             const treatTop = treat.spawnY;
             if( (treatLeft < dogRight) && (dogLeft < treatRight) && (treatTop >= dogTop)) {
+                this.treatCount += 1;
                 this.score += 1000;
+                this.updateTreatCount();
                 this.treats[0].delete(this.gamectx);
                 this.treats.splice(-1, 1);
                 this.generateTreat();
@@ -137,54 +161,15 @@ class Game{
             this.obstacles.push(new Vacuum(this.randomIntFromInterval(1020), 184));
         } 
     }
-  
-    // //make sure they dont spawn in predictable places
-    // createObstacles(){
-    //     // const obstacleSpacing = 200;
-    //     // const range1 = (Math.random() *this.dimensions.width);
-    //     // const range2 = (Math.random() * (this.dimensions.width - obstacleSpacing));
-    //     this.obstacles.push(new Vacuum(1040, 184));
-        
-    //     for(let i=0; this.obstacles.length < 3; i++){
-    //             let obstacleMax = this.obstacles[i].spawnX - 250;
-    //             let obstacleMin = obstacleMax - 200;
-    //             this.obstacles.push(new Vacuum(this.randomIntFromInterval(obstacleMin, obstacleMax), 184));
-    //     }
-    //     // this.obstacles.push(new Vacuum(this.randomIntFromInterval(this.obstacles.x))
-        
-    //     // this.obstacles.push(new Vacuum (this.randomIntFromInterval(,600), 184));
-
-    
-    //     //making sure that vacuums dont spawn on top of each other
-    //         // this.spaceBetween = 300;
-    //         // let object = new Vacuum (500, 184);
-    //         // let object3 = new Vacuum(this.randomIntFromInterval(100,700), 184);
-    //         // let object4 = new Vacuum(this.randomIntFromInterval(100,700), 184);
-         
-    //         // if (object3.x > object.x + this.spaceBetween || object3.x < object.x + this.spaceBetween){
-    //         //     this.obstacles.push(object3);
-    //         // } else if (object4.x > object.x + this.spaceBetween || object4.x < object.x + this.spaceBetween && object4.x){
-    //         //     this.obstacles.push(object4);
-    //         // }else {
-    //         //     this.obstacles.push(object);
-    //         // }
-
-    //         // switch(true){
-    //         //     case(this.obstacles[0].x > 400):
-    //         //         this.obstacles.push(new Vacuum (700, 184));
-    //         //     case (this.obstacles[1].x > 400):
-    //         //         this.obstacles.push(new Vacuum (1000, 184));
-    //         // }
-                
-        
-        
-    // }   
     
     randomIntFromInterval(min, max) { // min and max included 
     return Math.floor(Math.random() * (max - min + 1) + min);
     }
   
     start(){
+        if (this.frameId) {
+            cancelAnimationFrame(this.frameId)
+        }
         this.gameOver = false;
         this.player = new Player(this.dimensions);
         // this.vacuum = new Vacuum(Math.floor(Math.random() * Math.floor(800)), 184);

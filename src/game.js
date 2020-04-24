@@ -2,16 +2,12 @@ const Player = require('./player');
 const Background = require('./background.js');
 const Vacuum = require('./vacuum.js');
 const Treat = require('./treat.js');
-const DOGCORDS = {
-    dogRight: 113,
-    dogBot: 266
-}
+
 class Game{
     constructor(gamectx, backgroundctx){
         this.gamectx = gamectx;
         this.background = new Background(backgroundctx);
         this.dimensions = { width: gamectx.canvas.width, height: gamectx.canvas.height}
-        // this.player = new Player(this s.dimensions);
         this.jump = this.jump.bind(this);
         this.spacePressed = false;
         this.registerEvents();
@@ -24,19 +20,16 @@ class Game{
         this.gameSpeed = 3;
         this.gravity = 1;
         
-        this.updateScore = this.updateScore.bind(this);
-        this.updateTreatCount = this.updateTreatCount.bind(this);
         this.scoreDiv = document.getElementById("score");
         this.treatDiv = document.getElementById("treats");
-        // let object = new Vacuum(Math.floor(Math.random() * Math.floor(800)),182);
-        // let object2 =new Vacuum(Math.floor(Math.random() * Math.floor(800)),182);
+        this.updateScore = this.updateScore.bind(this);
+        this.updateTreatCount = this.updateTreatCount.bind(this);
+        this.start = this.start.bind(this);
+        
         this.maxVacuums = 3;
     }
  
-    // jump(){
-        //     this.player.jumping = true;
-        //     this.player.jump();
-        // }
+  
     jump(e){
         if(e.keyCode === 32){
             e.preventDefault();
@@ -53,17 +46,15 @@ class Game{
             document.getElementById("instruction1").classList.add("hide");
             document.getElementById("instruction2").classList.add("hide");
             document.getElementById("instruction3").classList.add("hide");
-
-             this.start();
-        });
+            this.start();
+        });  
     }
     animate(){
        if(!this.gameOver){
         this.frameId = requestAnimationFrame(this.animate.bind(this));
         this.player.animate(this.gamectx);
         this.createObstacles();
-        //this.obstacles  pool, look through it and call
-        // random number between 1 and 10 
+     
         this.generateTreat();
         for (let i=0; i<this.obstacles.length; i++){
             this.obstacles[i].draw(this.gamectx);
@@ -75,7 +66,7 @@ class Game{
         
         this.calculateScore();
         this.treatScore();
-        // this.checkgameOver();    
+        this.checkgameOver();    
         }
         this.background.draw();
         
@@ -113,10 +104,8 @@ class Game{
                 this.treats.splice(-1, 1);
                 this.generateTreat();
             }
-        })
-        
-
-     }
+        }) 
+    }
      checkgameOver(){
         this.obstacles.forEach((obstacle) => {
             const dogLeft = this.player.x + 10;
@@ -128,22 +117,27 @@ class Game{
             const vacuumTop = obstacle.spawnY + 20;
             if( (vacuumLeft < dogRight) && (dogLeft < vacuumRight) && (vacuumTop <= dogTop) ){
                 this.gameOver = true;
+                this.obstacles = [];                
                 this.gameOverScreen();
+
             }
         });
     }
     gameOverScreen(){
         if(this.gameOver === true){
             this.gamectx.beginPath();
-            this.gamectx.font = "50px Comic Sans MS";
+            this.gamectx.font = "3em Trebuchet MS";
             // Fill with gradient
             this.gamectx.textAlign = "center";
-            this.gamectx.fillStyle = '#ffcB37';
+            this.gamectx.fillStyle = '#dd8741';
             this.gamectx.strokeStyle = 'white';
-            this.gamectx.lineWidth = 4;
-            this.gamectx.strokeText("Game Over", this.gamectx.canvas.width/2, this.gamectx.canvas.height/2);
-            this.gamectx.fillText("Game Over", this.gamectx.canvas.width/2, this.gamectx.canvas.height/2);
-
+            this.gamectx.lineWidth = 2;
+            this.gamectx.strokeText("The Vacuums win this round!", this.gamectx.canvas.width/2, this.gamectx.canvas.height/2);
+            this.gamectx.fillText("The Vacuums win this round!", this.gamectx.canvas.width/2, this.gamectx.canvas.height/2);
+            this.gamectx.font = "30px Trebuchet MS";
+            this.gamectx.strokeText("Click to play again", 400, 190);
+            this.gamectx.fillText("Click to play again", 400, 190);
+            this.score = 0;
         }
     }
     generateTreat(){
@@ -163,7 +157,7 @@ class Game{
     }
     
     randomIntFromInterval(min, max) { // min and max included 
-    return Math.floor(Math.random() * (max - min + 1) + min);
+        return Math.floor(Math.random() * (max - min + 1) + min);
     }
   
     start(){
@@ -172,74 +166,10 @@ class Game{
         }
         this.gameOver = false;
         this.player = new Player(this.dimensions);
-        // this.vacuum = new Vacuum(Math.floor(Math.random() * Math.floor(800)), 184);
-        // this.treat = new Treat(770, 140);
-        
         //all other things to load here
         this.animate();
     }
-    
-    
-    // createObstacles(){
-    //     this.obstacles = [];
-    //     this.maxVacuums = 3;
-    //     if (this.obstacles < this.maxVacuums ){
-    //         let object = new Vacuum(Math.floor(Math.random() * Math.floor(800)), 184);
-    //         this.obstacles.push(object);
-    //     }
-    // }
-    
-    
-    // requestAnimation(){
-    //     debugger;
-    //     window.requestAnimationFrame( ()=>{
-    //         this.player.show(this.gamectx);
-    //         if (this.spacePressed){
-    //             this.player.velocity -= 5
-    //             this.spacePressed = false;
-    //         }
-            
-    //         this.player.update();
-            
-    //     });
-    // }
-    
-    
-    
-    // handleSpace(){
-    //     document.addEventListener("keydown", (event)=>{
-    //         if (event.which === "32") {
-    //             this.spacePressed = true;
-    //         }
-    //     }, false);
-    // }
-    
-
 
 }
-
-
-
-
-// move(){
-//     this.player.move();
-// }
-// spaceHandler(){
-//     let lastTarget;
-//     window.onload = () => {s
-//         document.addEventListener('mousedown', (event)=>{
-//             lastTarget = event.target;
-//         }, false);
-//         document.addEventListener('keydown', (event)=> {
-//             if (lastTarget === this.canvas) {
-//                 event.preventDefault();
-//                 this.move();
-//                 console.log("hhi");
-//                 debugger;
-//             }
-//         }, false);
-   
-//         }
-//     }
 
 module.exports = Game;

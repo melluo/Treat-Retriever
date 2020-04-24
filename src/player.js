@@ -1,10 +1,3 @@
-// const CONSTANTS = {
-//     TERMINAL_VEL: 12,
-//     SPEED: 10,
-//     GRAVITY: .35
-// }
-const Vacuum = require('./vacuum.js');
-
 class Player {
     constructor(dimensions){
         this.dimensions = dimensions;
@@ -54,38 +47,8 @@ class Player {
             // }             
         ];
 
-        }
-
-    
-    // jump(){
-    //    if (this.jumping){
-    //        //friction
-    //        this.velocity = -20;
-    //        this.moveUp();
-    //         //negative velocity, -1 for every 60 pixels up
-    //        this.jumping = false;
-    //        this.jumpCount += 1;
-    //         if (this.y < 250){
-    //             this.grounded();
-    //             this.jumpCount = 0;
-    //             this.jumping = true;
-    //         }
-    //    }
-    // }
-    // moveUp(){  
-    //     this.y += this.velocity;
-    //     this.velocity += this.gravity;
-    //     if (Math.abs(this.velocity) > CONSTANTS.TERMINAL_VEL) {
-    //         //if the terminal velocity is exceeded, we set it to the terminal velicty
-    //         if (this.velocity > 0) {
-    //           this.velocity = CONSTANTS.TERMINAL_VEL;
-    //         } else {
-    //           this.velocity = CONSTANTS.TERMINAL_VEL * -1;
-    //         }
-    //       }
-        
-    // }
- //edit more sprites and add them
+    }
+   
     loadSprite() {
         switch(true){
         case (this.y < 266):
@@ -125,23 +88,6 @@ class Player {
         }
     }
     
-
-    // jump(ctx){
-    //     if (ctx.canvas.keypress === "Space"){
-    //      console.log("hello");
-    //     }
-    // }
-  
-//    grounded(){
-//     if (this.y > this.dimensions.height - this.size || this.y <= this.maxHeight){
-//         this.y = this.dimensions.height - this.size; //so we can jump again
-//             this.velocity = 0;//no longer moving, velocity is 0
-//          }
-// 
-//    fall() {
-//        this.y += 100;
-//    }
-
     animate(ctx){
         this.jump(ctx);
         this.draw(ctx);
@@ -150,47 +96,9 @@ class Player {
         ctx.clearRect(0, 0, 800, 300)
         let sprite = this.loadSprite();
         ctx.drawImage(this.dogHero, sprite.sX, sprite.sY, sprite.w, sprite.h, this.x, this.y, sprite.w, sprite.h);
-        // ctx.beginPath();
-        // ctx.rect(this.x +10, this.y, 68-20, 32);
-        // ctx.lineWidth = 1;
-        // ctx.strokeStyle = 'yellow';
-        // ctx.stroke();
+       
     }
- 
-    // collidedWith(obstacle) {
-    //     const playerHitbox = this.hitbox();
-    //     const vacuumHitbox = vacuum.hitbox();
-    //     return !(
-    //       playerHitbox.maxX < vacuumHitbox.minX ||
-    //       playerHitbox.minX > vacuumHitbox.maxX ||
-    //       playerHitbox.maxY < vacuumHitbox.minY ||
-    //       playerHitbox.minY > vacuumHitbox.maxY
-    //     );
-    // }
-    
-     
-    
-    // draw(ctx){
-        
-    //     ctx.clearRect(0,0,800,300);
-    //     for(let currentFrame = 0; currentFrame < this.spriteTiles.length; currentFrame++){
-    //         this.srcX = this.spriteTiles[currentFrame].sX;
-    //         this.srcY = this.spriteTiles[currentFrame].sY;
-    //         this.dogWidth = this.spriteTiles[currentFrame].w;
-    //         this.dogHeight = this.spriteTiles[currentFrame].h;
-    //         ctx.drawImage(this.dogHero, this.srcX, this.srcY, this.dogWidth, this.dogHeight, this.x, this.y, this.size, this.size);
-    //     }
-    // }
-    
-    // currentFrame = ++ currentFrame % cols; //gets updated index of frame
-    // debugger;
-    // ctx.beginPath();
-    // ctx.rect(this.x, this.y, this.size, this.size);
-    // // ctx.drawImage(this.img, this.x, this.y);
-    // ctx.fillStyle = "yellow";
-    // ctx.fill();
-    // ctx.strokeStyle = 'yellow';
-    // ctx.stroke();
+
     bounds() {
         return{
             left: this.x,
@@ -206,29 +114,6 @@ class Player {
         return aboveTheTop || belowTheBottom;
     }
 }
-
-
-
-
-// update(){
-//     //are we underground? will adding 30 make is greater than the total height
-//     // debugger;
-//     if (this.y + this.velocity + this.size  + 30 > 300) { 
-//         //if so take us to ground level and reset velocity to 0
-//         this.velocity = 0;
-//         this.y = 300 - this.size - 30;
-//     } else {
-//         // else, move
-//         debugger;
-//         this.velocity += this.gravity;
-//         this.y += this.velocity;
-
-//     }
-// }
-    
-    
- 
-
 
 module.exports = Player;
 

@@ -95,10 +95,14 @@ body{
 }
 #main_background{
     position: absolute;
-  
+    outline: none;
     z-index: 0;
 
 
+}
+#canvas_container:focus, #canvas_container:active, #main_background:focus, #main_background:active{
+  outline: 0;
+  border: none;
 }
 
 br{
@@ -128,24 +132,23 @@ br{
 
 .hide{
   display: none;
-  background-image: none;
+  background: transparent;
   color: transparent;
   
 }
 
 #instruction1{
-  background: rgba(0,0,0,.65); 
+  background: rgba(36,39,80,.65); 
+  background-repeat: repeat;
   
 }
 #instruction2{
-  background: rgba(0,0,0,.65); 
+  background: rgba(36,39,80,.65); 
   
 }
 #instruction3{
-  background: rgba(0,0,0,.65); 
-  width: 100px;
   margin: 0 auto;
-  margin-top: 72px;
+  margin-top: 84px;
   
 }
 .start{

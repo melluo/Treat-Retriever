@@ -15,20 +15,10 @@ class Vacuum{
     draw(ctx){
         ctx.drawImage(this.sprite, this.spawnX, this.spawnY, this.vacuumWidth, this.vacuumHeight);
         if(this.spawnX <= (ctx.canvas.width*-1)){ 
-        
-        
             this.spawnX = ctx.canvas.width;
-         
         }
         this.spawnX -= this.speed;
-        // ctx.beginPath();
-        
-        // ctx.rect(this.spawnX + 20, this.spawnY +20 , 40, 120);
-        // ctx.lineWidth = 1;
-        // ctx.strokeStyle = 'yellow';
-        // ctx.stroke();
     }
-    
-  
 }
+
 module.exports= Vacuum;

@@ -19,8 +19,6 @@ class Background{
         if (this.x <= (this.imageWidth*-1)){
             //if reach end of image, reset x position to play image again
             this.x = 0;
-    
-            
         } 
         this.x -= this.speed;
         //making image move

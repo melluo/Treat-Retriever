@@ -43,9 +43,7 @@ class Game{
         this.gamectx.canvas.addEventListener("click", () => {
             document.getElementById("start").classList.add("hide");
             document.getElementById('starting-background').classList.add("hide");
-            document.getElementById("instruction1").classList.add("hide");
-            document.getElementById("instruction2").classList.add("hide");
-            document.getElementById("instruction3").classList.add("hide");
+            document.getElementById("instruction").classList.add("hide");
             this.start();
         });  
     }
@@ -126,7 +124,7 @@ class Game{
     gameOverScreen(){
         if(this.gameOver === true){
             this.gamectx.beginPath();
-            this.gamectx.font = "3em Trebuchet MS";
+            this.gamectx.font = "3em Monospace";
             // Fill with gradient
             this.gamectx.textAlign = "center";
             this.gamectx.fillStyle = '#dd8741';
@@ -134,7 +132,7 @@ class Game{
             this.gamectx.lineWidth = 2;
             this.gamectx.strokeText("The Vacuums win this round!", this.gamectx.canvas.width/2, this.gamectx.canvas.height/2);
             this.gamectx.fillText("The Vacuums win this round!", this.gamectx.canvas.width/2, this.gamectx.canvas.height/2);
-            this.gamectx.font = "30px Trebuchet MS";
+            this.gamectx.font = "30px Monospace";
             this.gamectx.strokeText("Click to play again", 400, 190);
             this.gamectx.fillText("Click to play again", 400, 190);
             this.score = 0;

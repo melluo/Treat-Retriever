@@ -137,18 +137,10 @@ br{
   
 }
 
-#instruction1{
-  background: rgba(36,39,80,.65); 
-  background-repeat: repeat;
-  
-}
-#instruction2{
-  background: rgba(36,39,80,.65); 
-  
-}
 #instruction3{
-  text-align: right;
-  margin-top: 170px;
+  font-weight: bold;
+  margin: 0 auto;
+  margin-top: 20px;
 }
 
 .start{
@@ -157,20 +149,31 @@ br{
   position: absolute;
   display: flex;
   flex-direction: column;
-  font-family: 'Press Start 2P';
+  font-family: "Press Start 2P";
   color: white;
+  font-size: 20px;
   text-align: center;
 }
 
-#contact-container{
+#instruction-container{
   display: flex;
   flex-direction: column;
   width: 100%;
   justify-content: center;
   text-align: center;
-  margin: 0 auto;
-  
+  margin: auto auto;
+  font-family: monospace;
+  font-size: 27px;
+  color: #242750;
+  margin-top: 20px; 
+  line-height: 1px;
+  animation: fadein 3s;
 }
+@keyframes fadein{
+  from {opacity: 0}
+  to {opacity: 1}
+}
+
 #credits > ul {
   list-style: none; 
   display: flex;

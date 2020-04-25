@@ -44,6 +44,9 @@ class Game{
             document.getElementById("start").classList.add("hide");
             document.getElementById('starting-background').classList.add("hide");
             document.getElementById("instruction").classList.add("hide");
+            document.getElementById("description").classList.add("hide");
+            document.getElementById("description2").classList.add("hide");
+
             this.start();
         });  
     }

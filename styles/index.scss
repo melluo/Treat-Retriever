@@ -3,6 +3,17 @@ body{
   background-repeat:no-repeat;
   background-size: cover;
 }
+a{
+  text-decoration: none;
+  color: white;
+}
+  
+a:visited{
+  text-decoration: none;
+  color: white;
+
+}
+
 .game_name{
     font-family: 'Press Start 2P';
     color: white;

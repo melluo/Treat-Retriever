@@ -14,6 +14,7 @@ class Player {
         this.dogHero = new Image();
         this.dogHero.src = "./assets/caped_hero.png";
         this.walkcycle = 0;
+        this.jumpSound = new Audio('./assets/sounds/jump.mp3');
         this.spriteTiles = [
             {
                 sX: 61,
@@ -98,7 +99,12 @@ class Player {
         ctx.drawImage(this.dogHero, sprite.sX, sprite.sY, sprite.w, sprite.h, this.x, this.y, sprite.w, sprite.h);
        
     }
-
+    jumpSound(){
+        this.jumping = true;
+        if(this.y >= 266){
+            this.jumpSound.play()
+        }
+    }
     bounds() {
         return{
             left: this.x,

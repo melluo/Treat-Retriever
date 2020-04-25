@@ -19,7 +19,7 @@ class Game{
         this.treatCount = 0;
         this.gameSpeed = 3;
         this.gravity = 1;
-        
+        this.loadBackground();
         this.scoreDiv = document.getElementById("score");
         this.treatDiv = document.getElementById("treats");
         this.updateScore = this.updateScore.bind(this);
@@ -33,14 +33,22 @@ class Game{
     jump(e){
         if(e.keyCode === 32){
             e.preventDefault();
-            this.player.jumping = true;
+            this.player.jumpSound();
             this.player.jump();
         }
     }
-    
+    loadBackground(){
+        window.onload = function() {
+            if(!window.location.hash) {
+                window.location = window.location + '#';
+                window.location.reload();
+            }
+        }
+    }
     registerEvents(){
         this.gamectx.canvas.addEventListener("keydown", this.jump);
         this.gamectx.canvas.addEventListener("click", () => {
+           
             document.getElementById("start").classList.add("hide");
             document.getElementById('starting-background').classList.add("hide");
             document.getElementById("instruction").classList.add("hide");

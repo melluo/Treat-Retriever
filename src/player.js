@@ -99,10 +99,9 @@ class Player {
         ctx.drawImage(this.dogHero, sprite.sX, sprite.sY, sprite.w, sprite.h, this.x, this.y, sprite.w, sprite.h);
        
     }
-    jumpSound(){
-        this.jumping = true;
+    jumpingSound(){
         if(this.y >= 266){
-            this.jumpSound.play()
+            this.jumpSound.play();
         }
     }
     bounds() {

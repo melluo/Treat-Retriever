@@ -10,12 +10,14 @@ class Game{
         this.dimensions = { width: gamectx.canvas.width, height: gamectx.canvas.height}
         this.jump = this.jump.bind(this);
         this.spacePressed = false;
+        this.music = new Audio('./assets/sounds/music1.mp3');
         this.registerEvents();
         this.obstacles = [];
         this.treats = [];
         this.frame = 0;
         this.frameId = null;
         this.score = 0;
+        this.maxVacuums = 3;
         this.treatCount = 0;
         this.gameSpeed = 3;
         this.gravity = 1;
@@ -26,14 +28,14 @@ class Game{
         this.updateTreatCount = this.updateTreatCount.bind(this);
         this.start = this.start.bind(this);
         
-        this.maxVacuums = 3;
     }
  
   
     jump(e){
         if(e.keyCode === 32){
             e.preventDefault();
-            this.player.jumpSound();
+            this.player.jumping = true;
+            this.player.jumpingSound();
             this.player.jump();
         }
     }
@@ -48,7 +50,7 @@ class Game{
     registerEvents(){
         this.gamectx.canvas.addEventListener("keydown", this.jump);
         this.gamectx.canvas.addEventListener("click", () => {
-           
+           this.music.play();
             document.getElementById("start").classList.add("hide");
             document.getElementById('starting-background').classList.add("hide");
             document.getElementById("instruction").classList.add("hide");
@@ -115,7 +117,7 @@ class Game{
             }
         }) 
     }
-     checkgameOver(){
+    checkgameOver(){
         this.obstacles.forEach((obstacle) => {
             const dogLeft = this.player.x + 10;
             const dogTop = this.player.y + 10;
@@ -155,13 +157,12 @@ class Game{
         }
     }
     createObstacles(){
-        if (this.background.x === 0 && this.obstacles.length < 3){
-            this.obstacles.push(new Vacuum(600, 184));
-            
-        } else if (this.background.x === -450 && this.obstacles.length < 3){
-            this.obstacles.push(new Vacuum(this.randomIntFromInterval(600,820), 184));
-        } else if (this.background.x === -820 && this.obstacles.length < 3){
-            this.obstacles.push(new Vacuum(this.randomIntFromInterval(1020), 184));
+        if (this.background.x === -10 && this.obstacles.length < this.maxVacuums){
+            this.obstacles.push(new Vacuum(600, 184)); 
+        } else if (this.background.x === -400 && this.obstacles.length < this.maxVacuums){
+            this.obstacles.push(new Vacuum(this.randomIntFromInterval(820,1020), 184));
+        } else if (this.background.x === -820 && this.obstacles.length < this.maxVacuums){
+            this.obstacles.push(new Vacuum(this.randomIntFromInterval(1300,1600), 184));
         } 
     }
     

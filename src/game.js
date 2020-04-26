@@ -154,7 +154,6 @@ class Game{
             this.gamectx.font = "30px Monospace";
             this.gamectx.strokeText("Click to play again", 400, 190);
             this.gamectx.fillText("Click to play again", 400, 190);
-            this.score = 0;
         }
     }
     generateTreat(){
@@ -180,6 +179,9 @@ class Game{
         if (this.frameId) {
             cancelAnimationFrame(this.frameId)
         }
+        this.treatCount = 0;
+        this.score = 0;
+        this.treatDiv.innerText = "Treats Retrieved: 0";
         this.gameOverMusic.pause();
         this.music.volume = 0.3;
         this.music.play();

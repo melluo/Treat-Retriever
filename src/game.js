@@ -11,6 +11,8 @@ class Game{
         this.jump = this.jump.bind(this);
         this.spacePressed = false;
         this.music = new Audio('./assets/sounds/music1.mp3');
+        this.music.loop = true;
+        this.gameOverMusic = new Audio('./assets/sounds/sad.mp3');
         this.registerEvents();
         this.obstacles = [];
         this.treats = [];
@@ -50,7 +52,7 @@ class Game{
     registerEvents(){
         this.gamectx.canvas.addEventListener("keydown", this.jump);
         this.gamectx.canvas.addEventListener("click", () => {
-           this.music.play();
+           
             document.getElementById("start").classList.add("hide");
             document.getElementById('starting-background').classList.add("hide");
             document.getElementById("instruction").classList.add("hide");
@@ -130,6 +132,10 @@ class Game{
                 this.gameOver = true;
                 this.obstacles = [];                
                 this.gameOverScreen();
+                this.music.pause();
+                this.gameOverMusic.load();
+                this.gameOverMusic.volume = 0.4;
+                this.gameOverMusic.play();
 
             }
         });
@@ -174,6 +180,9 @@ class Game{
         if (this.frameId) {
             cancelAnimationFrame(this.frameId)
         }
+        this.gameOverMusic.pause();
+        this.music.load();
+        this.music.play();
         this.gameOver = false;
         this.player = new Player(this.dimensions);
         //all other things to load here

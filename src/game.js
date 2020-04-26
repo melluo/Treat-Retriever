@@ -134,7 +134,7 @@ class Game{
                 this.gameOverScreen();
                 this.music.pause();
                 this.gameOverMusic.load();
-                this.gameOverMusic.volume = 0.4;
+                this.gameOverMusic.volume = 0.2;
                 this.gameOverMusic.play();
 
             }
@@ -181,7 +181,7 @@ class Game{
             cancelAnimationFrame(this.frameId)
         }
         this.gameOverMusic.pause();
-        this.music.load();
+        this.music.volume = 0.3;
         this.music.play();
         this.gameOver = false;
         this.player = new Player(this.dimensions);

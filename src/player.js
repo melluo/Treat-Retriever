@@ -101,6 +101,7 @@ class Player {
     }
     jumpingSound(){
         if(this.y >= 266){
+            this.jumpSound.volume = .2;
             this.jumpSound.play();
         }
     }

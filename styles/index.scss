@@ -11,7 +11,6 @@ a{
 a:visited{
   text-decoration: none;
   color: white;
-
 }
 
 .game_name{
@@ -178,13 +177,17 @@ br{
   color: #242750;
   margin-top: 20px; 
   line-height: 1px;
-  animation: fadein 3s;
+  animation: 2s ease .5s normal forwards 1 fade-in;
+  opacity: 0;
 }
-@keyframes fadein{
-  from {opacity: 0}
-  to {opacity: 1}
+@keyframes fade-in{
+    from{
+        opacity:0
+    }
+    to{
+        opacity:1
+    }
 }
-
 #credits > ul {
   list-style: none; 
   display: flex;

@@ -13,6 +13,7 @@ class Game{
         this.music = new Audio('./assets/sounds/music1.mp3');
         this.music.loop = true;
         this.gameOverMusic = new Audio('./assets/sounds/sad.mp3');
+        this.muted = false;
         this.registerEvents();
         this.obstacles = [];
         this.treats = [];
@@ -50,17 +51,31 @@ class Game{
         }
     }
     registerEvents(){
+        const muteButton = document.getElementById("mute-button");
         this.gamectx.canvas.addEventListener("keydown", this.jump);
         this.gamectx.canvas.addEventListener("click", () => {
-           
+            
             document.getElementById("start").classList.add("hide");
             document.getElementById('starting-background').classList.add("hide");
             document.getElementById("instruction").classList.add("hide");
             document.getElementById("description").classList.add("hide");
             document.getElementById("description2").classList.add("hide");
-
+            muteButton.style.display = "block";
             this.start();
         });  
+        muteButton.addEventListener("mouseover", () => {
+            if (this.muted === false){
+                muteButton.className = "muted";
+                this.music.pause();
+                this.muted = true;
+            } else {
+                muteButton.className = "";
+                this.muted = false;
+                if (!this.gameOver){
+                    this.music.play();
+                }
+            }
+        })
     }
     animate(){
        if(!this.gameOver){
@@ -183,12 +198,23 @@ class Game{
         this.score = 0;
         this.treatDiv.innerText = "Treats Retrieved: 0";
         this.gameOverMusic.pause();
-        this.music.volume = 0.3;
-        this.music.play();
+        if (this.muted === false){
+            this.music.volume = 0.3;
+            this.music.play();
+        }
         this.gameOver = false;
         this.player = new Player(this.dimensions);
         //all other things to load here
         this.animate();
+    }
+
+    muteMusic(){
+        
+        muteButton.onclick = () => {
+            muteButton.className = "muted";
+            this.music.pause();
+        }
+
     }
 
 }

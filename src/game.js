@@ -151,6 +151,10 @@ class Game{
                 this.gameOverMusic.load();
                 this.gameOverMusic.volume = 0.2;
                 this.gameOverMusic.play();
+                this.frame = 0;
+                this.treatCount = 0;
+                this.score = 0;
+                this.treatDiv.innerText = "Treats Retrieved: 0";
 
             }
         });
@@ -194,9 +198,6 @@ class Game{
         if (this.frameId) {
             cancelAnimationFrame(this.frameId)
         }
-        this.treatCount = 0;
-        this.score = 0;
-        this.treatDiv.innerText = "Treats Retrieved: 0";
         this.gameOverMusic.pause();
         if (this.muted === false){
             this.music.volume = 0.3;

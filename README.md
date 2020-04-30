@@ -14,22 +14,29 @@ You are the caped super-retriever! Avoid angry vacuum cleaners and collect treat
 # Features
 ## Parallax Background:
 - The parallax background involves multiple layers, the background canvas, the player sprite, treats and obstacles are all drawn on to the canvas and move at different speeds.
-
-<img src="./assets/parallax.gif?raw=true" ></img>
-
 ```javascript
 class Background{
-    ...
- draw(){
+    constructor(ctx){
+        this.ctx = ctx;
+        this.image = new Image();
+        this.image.src = main_background;
+        this.imageWidth = this.image.width;
+        this.ctxWidth = this.ctx.canvas.width;
+        this.speed = 2;
+        this.x = 0;
+        this.y = 0;
+    }
+    draw(){
         this.ctx.drawImage(this.image, this.x, this.y);
         this.ctx.drawImage(this.image, this.x + this.imageWidth,this.y);
-        if (this.x <= (this.imageWidth*-1)){
-            this.x = 0;
-        } 
+            if (this.x <= (this.imageWidth*-1)){
+                this.x = 0;
+            } 
         this.x -= this.speed;
     }
 }
 ```
+<img src="./assets/parallax.gif?raw=true" style="align:center"></img>
 
 ## Collision Detection:
 - Collision for treats and vacuums are determined by measuring when an edge of a dog overlaps with an edge of an obstacle.

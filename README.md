@@ -1,18 +1,18 @@
-# [Treat Retriever] (https://melodyluo.com/Treat-Retriever/ "Treat Retriever")
+# [Treat Retriever](https://melodyluo.com/Treat-Retriever/ "Treat Retriever")
 [Live Site](https://melodyluo.com/Treat-Retriever/ "Treat Retriever")
 ![alt text](https://bumblr-dev.s3.us-east-2.amazonaws.com/Screen+Shot+2020-04-29+at+9.07.25+PM.jpg "Treat Retriever")
 ##### Treat Retriever is an infinite run obstacle avoiding and collection game inspired by the likes of T-Rex Runner, Subway Surfers and Temple Run.
-
-# Architecture && API
-    -Javascript used in all front-end development
-    -CanvasHTML used to render various sprites and obstacles
-    -HTMLDom used for rendering various game inputs
-    -Webpack used to bundle Javascript, CSS files and provide scripts
 # Instructions
 You are the caped super-retriever! Avoid angry vacuum cleaners and collect treats to get the highest score possible.
+# Architecture && API
+- Javascript used in all front-end development
+- CanvasHTML used to render various sprites and obstacles
+- HTMLDom used for rendering various game inputs
+- Webpack used to bundle Javascript, CSS files and provide scripts
 # Features
 ## Parallax Background:
 - The parallax background involves multiple layers, the background canvas, the player sprite, treats and obstacles are all drawn on to the canvas and move at different speeds.
+![alt text](https://bumblr-dev.s3.us-east-2.amazonaws.com/ezgif.com-video-to-gif.gif "Parallax Background")
 ```javascript
 class Background{
     ...
@@ -26,7 +26,6 @@ class Background{
     }
 }
 ```
-![alt text](https://bumblr-dev.s3.us-east-2.amazonaws.com/ezgif.com-video-to-gif.gif "Parallax Background")
 
 ## Collision Detection:
 - Collision for treats and vacuums are determined by measuring when an edge of a dog overlaps with an edge of an obstacle.

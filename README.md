@@ -1,47 +1,60 @@
-# Treat Retriever
-## Background and Overview 
-Treat Retriever is an infinite run obstacle avoiding and collection game inspired by similar games like Subway Surfers and Temple Run.
+# [Treat Retriever] (https://melodyluo.com/Treat-Retriever/ "Treat Retriever")
+[Live Site](https://melodyluo.com/Treat-Retriever/ "Treat Retriever")
+![alt text](https://bumblr-dev.s3.us-east-2.amazonaws.com/Screen+Shot+2020-04-29+at+9.07.25+PM.jpg "Treat Retriever")
+##### Treat Retriever is an infinite run obstacle avoiding and collection game inspired by the likes of T-Rex Runner, Subway Surfers and Temple Run.
+
+# Architecture && API
+    -Javascript used in all front-end development
+    -CanvasHTML used to render various sprites and obstacles
+    -HTMLDom used for rendering various game inputs
+    -Webpack used to bundle Javascript, CSS files and provide scripts
+# Instructions
 You are the caped super-retriever! Avoid angry vacuum cleaners and collect treats to get the highest score possible.
-## Functionality and MVP
-In Treat Retriever, users will be able to:
-    -Use space bar to jump over obstacles (vacuum cleaners)
-    -Collect treats increase their score
-    -Choose between an easy, medium, or hard mode
-Maybe Feature:
-    -Cat popping up and out of sewer in which doggo has to avoid
-## Wireframe 
-![WireFrame](./assets/WireFrame.png)
-## File Structure
-``` 
-    /assets
-        -background.png
-        -bone_treat.png
-        -caped_hero.png
-        -evil_vacuum.png
-        -WireFrame.png
-    /styles
-        -index.scss
-    /src
-        -background.js
-        -obstacles.js
-        -treat.js
-        -vacuum.js
-        -treat_retriever.js
-        -difficulty_levels.js
-        -game.js
-        -player.js (dog sprite)
-        -nav_bar.js
-        -index.js
-        
+# Features
+## Parallax Background:
+- The parallax background involves multiple layers, the background canvas, the player sprite, treats and obstacles are all drawn on to the canvas and move at different speeds.
+```javascript
+class Background{
+    ...
+ draw(){
+        this.ctx.drawImage(this.image, this.x, this.y);
+        this.ctx.drawImage(this.image, this.x + this.imageWidth,this.y);
+        if (this.x <= (this.imageWidth*-1)){
+            this.x = 0;
+        } 
+        this.x -= this.speed;
+    }
+}
 ```
-## Architecture && API
-    -CanvasHTML to render various sprites and obstacles
-    -HTMLDom will be used for rendering various game inputs and 
-    -Webpack to bundle Javascript, CSS files and provide scripts
-## Implementation Timeline
-Day 1-3:
-1. Create Index.html based on Wireframe
-2. Player Logic
-3. Background and Game Logic
-4. Treat & Obstacles & Score
-5. Nav Bar & Difficulty levels
+![alt text](https://bumblr-dev.s3.us-east-2.amazonaws.com/ezgif.com-video-to-gif.gif "Parallax Background")
+
+## Collision Detection:
+- Collision for treats and vacuums are determined by measuring when an edge of a dog overlaps with an edge of an obstacle.
+- Colliding with a treat will increment a player's score and treats retrieved count. Colliding with a vacuum will render a Game Over screen.
+```javascript
+treatScore(){
+        this.treats.forEach((treat) => {
+            const dogLeft = this.player.x + 10;
+            const dogTop = this.player.y + 10;
+            const dogRight = this.player.x + this.player.spriteTiles[1].w;
+            const treatLeft =  treat.spawnX + 2
+            const treatRight = treat.spawnX + treat.boneWidth + 2;
+            const treatTop = treat.spawnY;
+            if( (treatLeft < dogRight) && (dogLeft < treatRight) && (treatTop >= dogTop)) {
+                this.treatCount += 1;
+                this.score += 1000;
+                this.updateTreatCount();
+                this.treats[0].delete(this.gamectx);
+                this.treats.splice(-1, 1);
+                this.generateTreat();
+            }
+        }) 
+    }
+```
+
+## Future Implementation
+- Add high score panel
+
+##### Legal
+- Music and Sound effects provided by Nexon and Nintendo
+

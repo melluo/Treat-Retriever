@@ -14,7 +14,9 @@ You are the caped super-retriever! Avoid angry vacuum cleaners and collect treat
 # Features
 ## Parallax Background:
 - The parallax background involves multiple layers, the background canvas, the player sprite, treats and obstacles are all drawn on to the canvas and move at different speeds.
-![alt text](https://bumblr-dev.s3.us-east-2.amazonaws.com/ezgif.com-video-to-gif+(1).gif "Parallax Background")
+
+<img src="./assets/parallax.gif?raw=true" ></img>
+
 ```javascript
 class Background{
     ...

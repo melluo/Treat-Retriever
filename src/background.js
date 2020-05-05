@@ -9,7 +9,6 @@ class Background{
         this.speed = 2;
         this.x = 0;
         this.y = 0;
-        
     }
     draw(){
         this.ctx.drawImage(this.image, this.x, this.y);

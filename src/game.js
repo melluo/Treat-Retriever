@@ -14,6 +14,8 @@ class Game{
         this.music.loop = true;
         this.gameOverMusic = new Audio('./assets/sounds/sad.mp3');
         this.muted = false;
+        this.gamePlaying = false;
+        this.isJumping = false;
         this.registerEvents();
         this.obstacles = [];
         this.treats = [];
@@ -40,6 +42,7 @@ class Game{
             this.player.jumping = true;
             this.player.jumpingSound();
             this.player.jump();
+            this.isJumping = true;
         }
     }
     loadBackground(){
@@ -53,8 +56,9 @@ class Game{
     registerEvents(){
         const muteButton = document.getElementById("mute-button");
         this.gamectx.canvas.addEventListener("keydown", this.jump);
+      
         this.gamectx.canvas.addEventListener("click", () => {
-            
+            this.gamePlaying = true;
             document.getElementById("start").classList.add("hide");
             document.getElementById('starting-background').classList.add("hide");
             document.getElementById("instruction").classList.add("hide");
@@ -62,7 +66,8 @@ class Game{
             document.getElementById("description2").classList.add("hide");
             muteButton.style.display = "block";
             this.start();
-        });  
+        });
+        
         muteButton.addEventListener("mouseover", () => {
             if (this.muted === false){
                 muteButton.className = "muted";
@@ -145,7 +150,9 @@ class Game{
             const vacuumTop = obstacle.spawnY + 20;
             if( (vacuumLeft < dogRight) && (dogLeft < vacuumRight) && (vacuumTop <= dogTop) ){
                 this.gameOver = true;
-                this.obstacles = [];                
+                this.isJumping = false;
+                this.obstacles = [];               
+                this.gamePlaying = false; 
                 this.gameOverScreen();
                 this.music.pause();
                 this.gameOverMusic.load();
@@ -154,7 +161,6 @@ class Game{
                 this.frame = 0;
                 this.treatCount = 0;
                 this.score = 0;
-                this.treatDiv.innerText = "Treats Retrieved: 0";
 
             }
         });
@@ -195,18 +201,22 @@ class Game{
     }
   
     start(){
-        if (this.frameId) {
-            cancelAnimationFrame(this.frameId)
-        }
-        this.gameOverMusic.pause();
-        if (this.muted === false){
-            this.music.volume = 0.3;
-            this.music.play();
-        }
-        this.gameOver = false;
-        this.player = new Player(this.dimensions);
-        //all other things to load here
-        this.animate();
+        if (this.gamePlaying && !this.isJumping){
+            if (this.frameId) {
+                cancelAnimationFrame(this.frameId)
+            }
+            this.treatDiv.innerText = "Treats Retrieved: 0";
+
+            this.gameOverMusic.pause();
+            if (this.muted === false){
+                this.music.volume = 0.3;
+                this.music.play();
+            }
+            this.gameOver = false;
+            this.player = new Player(this.dimensions);
+            //all other things to load here
+            this.animate();
+        }   
     }
 
     muteMusic(){
